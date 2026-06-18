@@ -41,22 +41,22 @@ const YPM = {
 const LEVELS = [
   { id: "beginner",    label: "Beginner / Rec" },
   { id: "youth_10u",  label: "Youth 10 & Under" },
-  { id: "youth_1112", label: "Youth 11–12" },
-  { id: "youth_1314", label: "Youth 13–14" },
+  { id: "youth_1112", label: "Youth 11â12" },
+  { id: "youth_1314", label: "Youth 13â14" },
   { id: "high_school",label: "High School / Club" },
   { id: "college_d1", label: "College D1" },
   { id: "masters",    label: "Masters (USMS)" },
 ];
 
 const FOCUS_AREAS = [
-  { id: "aerobic",    label: "Aerobic Base",         emoji: "🫁" },
-  { id: "sprint",     label: "Sprint / Speed",        emoji: "⚡" },
-  { id: "technique",  label: "Stroke Technique",      emoji: "🎯" },
-  { id: "im",         label: "Individual Medley",     emoji: "🔄" },
-  { id: "kick",       label: "Kick Development",      emoji: "🦵" },
-  { id: "underwater", label: "Underwater / Turns",    emoji: "🐬" },
-  { id: "threshold",  label: "Race Pace / Threshold", emoji: "🏁" },
-  { id: "recovery",   label: "Recovery / Easy",       emoji: "😌" },
+  { id: "aerobic",    label: "Aerobic Base",         emoji: "ð«" },
+  { id: "sprint",     label: "Sprint / Speed",        emoji: "â¡" },
+  { id: "technique",  label: "Stroke Technique",      emoji: "ð¯" },
+  { id: "im",         label: "Individual Medley",     emoji: "ð" },
+  { id: "kick",       label: "Kick Development",      emoji: "ð¦µ" },
+  { id: "underwater", label: "Underwater / Turns",    emoji: "ð¬" },
+  { id: "threshold",  label: "Race Pace / Threshold", emoji: "ð" },
+  { id: "recovery",   label: "Recovery / Easy",       emoji: "ð" },
 ];
 
 const SEASON_PHASES = [
@@ -73,7 +73,7 @@ const DAYS_OF_WEEK     = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const LENGTH_OPTIONS   = [45, 60, 75, 90, 120];
 
 const VARIETY_RULES = `
-VARIETY RULES — CRITICAL:
+VARIETY RULES â CRITICAL:
 - NEVER write a straight 400 or longer sustained swim as a main set element. Break everything up.
 - Use ladders: e.g. 25-50-75-100-75-50-25, or 100-200-300-200-100
 - Use descending sets: each rep faster, interval drops 5-10 sec each round
@@ -81,8 +81,8 @@ VARIETY RULES — CRITICAL:
 - Use competition elements: "race the lane next to you," "negative split or add a 25," "team beats the clock gets out 3 min early"
 - Use mystery sets: write "(coach reveals next rep)" for one element per practice
 - Use time trial relays or odds vs evens lane competitions
-- Use "get-out swims" — one final fast rep, hit the goal time and practice ends
-- Vary distances constantly within a set — avoid repeating the same distance more than 4 times in a row
+- Use "get-out swims" â one final fast rep, hit the goal time and practice ends
+- Vary distances constantly within a set â avoid repeating the same distance more than 4 times in a row
 - Every main set should have at least one element that creates competition, stakes, or surprise
 - Fun and punishing are not opposites. Make them earn it but make it interesting.`;
 
@@ -95,7 +95,7 @@ function buildSysPrompt(levelLabel, intensity, targetYards, practiceMin, splitMo
   return `You are an expert competitive swimming coach writing real, practical, ENGAGING workouts for club swimmers.
 
 MATH RULES:
-- After every set write the math: e.g. "8 × 100 = 800 yds"
+- After every set write the math: e.g. "8 Ã 100 = 800 yds"
 - End every section (WARM-UP, PRE-SET, MAIN SET, COOL-DOWN) with: "--- Section total: XXX yds ---"
 - End with: "=== TOTAL: XXX yds ===" which must equal exact sum of section totals
 - Use these exact section headers so the app can parse them
@@ -104,18 +104,18 @@ ${VARIETY_RULES}
 
 PARAMETERS:
 - Swimmer level: ${levelLabel}
-- Intensity: ${intensity}/5 — ${INTENSITY_LABELS[intensity-1]}
+- Intensity: ${intensity}/5 â ${INTENSITY_LABELS[intensity-1]}
 - Practice duration: ${practiceMin} minutes
-- Target yardage: ${targetYards} yards — calibrate to this, do not exceed by more than 5%
+- Target yardage: ${targetYards} yards â calibrate to this, do not exceed by more than 5%
 
 INTENSITY:
-1 Just Moving — fun, generous rest, no pressure
-2 Fitness — moderate, achievable, feel good when done  
-3 Training — focused, snug intervals, some challenge
-4 Competitive — tight intervals, designed for real improvement
-5 Elite — what top programs actually do, demanding
+1 Just Moving â fun, generous rest, no pressure
+2 Fitness â moderate, achievable, feel good when done  
+3 Training â focused, snug intervals, some challenge
+4 Competitive â tight intervals, designed for real improvement
+5 Elite â what top programs actually do, demanding
 
-${splitMode ? `SPLIT OUTPUT — write two clearly labeled sections:
+${splitMode ? `SPLIT OUTPUT â write two clearly labeled sections:
 
 COMPETITIVE LANE
 [full target yardage, tight intervals, competition elements, get-out swim]
@@ -138,10 +138,10 @@ COACH'S TWEAK REQUEST: "${tweakRequest}"
 
 RULES:
 - Keep approximately ${targetSectionYards} yards for this section
-- Show math after every set: e.g. "8 × 100 = 800 yds"
+- Show math after every set: e.g. "8 Ã 100 = 800 yds"
 - End with: "--- Section total: XXX yds ---"
 - Apply the tweak request faithfully
-- Keep it engaging — no boring straight 400s, use variety, ladders, competition elements
+- Keep it engaging â no boring straight 400s, use variety, ladders, competition elements
 - Swimmer level: ${levelLabel}
 
 Return ONLY the rewritten section. No intro, no explanation. Just the section content starting with the section header.`;
@@ -206,10 +206,10 @@ function CopyPrintBar({ content }) {
   return (
     <div style={{ display: "flex", gap: "8px", marginTop: "14px", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
       <button onClick={handleCopy} style={{ flex: 1, padding: "9px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.15)", background: copied ? "rgba(34,197,94,0.2)" : "rgba(255,255,255,0.05)", color: copied ? "#22c55e" : "#94a3b8", cursor: "pointer", fontSize: "12px", fontWeight: "600" }}>
-        {copied ? "✓ Copied!" : "📋 Copy"}
+        {copied ? "â Copied!" : "ð Copy"}
       </button>
       <button onClick={handlePrint} style={{ flex: 1, padding: "9px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.05)", color: "#94a3b8", cursor: "pointer", fontSize: "12px", fontWeight: "600" }}>
-        🖨️ Print
+        ð¨ï¸ Print
       </button>
     </div>
   );
@@ -220,16 +220,16 @@ function SectionCard({ name, content, onTweak, accent = "#38bdf8" }) {
   const [tweakInput, setTweakInput] = useState("");
   const [loading, setLoading]     = useState(false);
 
-  const icons = { "WARM-UP": "🌊", "PRE-SET": "🦵", "MAIN SET": "🔥", "COOL-DOWN": "😌" };
+  const icons = { "WARM-UP": "ð", "PRE-SET": "ð¦µ", "MAIN SET": "ð¥", "COOL-DOWN": "ð" };
 
   return (
     <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${accent}33`, borderRadius: "10px", padding: "14px", marginBottom: "10px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
         <div style={{ fontSize: "11px", color: accent, fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase" }}>
-          {icons[name] || "📋"} {name}
+          {icons[name] || "ð"} {name}
         </div>
         <button onClick={() => setTweaking(!tweaking)} style={{ padding: "4px 12px", borderRadius: "12px", border: `1px solid ${accent}55`, background: tweaking ? `${accent}22` : "transparent", color: accent, cursor: "pointer", fontSize: "11px", fontWeight: "600" }}>
-          {tweaking ? "Cancel" : "✏️ Tweak"}
+          {tweaking ? "Cancel" : "âï¸ Tweak"}
         </button>
       </div>
 
@@ -250,7 +250,7 @@ function SectionCard({ name, content, onTweak, accent = "#38bdf8" }) {
               onClick={() => tweakInput.trim() && !loading && onTweak(name, content, tweakInput, setLoading, () => { setTweaking(false); setTweakInput(""); })}
               disabled={loading || !tweakInput.trim()}
               style={{ padding: "9px 16px", borderRadius: "20px", border: "none", background: tweakInput.trim() ? accent : "rgba(255,255,255,0.1)", color: tweakInput.trim() ? "#070d1a" : "#475569", cursor: tweakInput.trim() ? "pointer" : "not-allowed", fontSize: "13px", fontWeight: "700" }}>
-              {loading ? "..." : "→"}
+              {loading ? "..." : "â"}
             </button>
           </div>
         </div>
@@ -294,21 +294,21 @@ function WorkoutOutput({ text, levelLabel, iColor, splitMode, activeView, setAct
       <div>
         <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
           <button onClick={() => setActiveView("comp")} style={{ flex: 1, padding: "11px", borderRadius: "10px", border: `2px solid ${activeView === "comp" ? "#f97316" : "rgba(255,255,255,0.1)"}`, background: activeView === "comp" ? "rgba(249,115,22,0.15)" : "transparent", color: activeView === "comp" ? "#f97316" : "#64748b", cursor: "pointer", fontSize: "13px", fontWeight: "700" }}>
-            🏆 Competitive Lane
+            ð Competitive Lane
           </button>
           <button onClick={() => setActiveView("rec")} style={{ flex: 1, padding: "11px", borderRadius: "10px", border: `2px solid ${activeView === "rec" ? "#38bdf8" : "rgba(255,255,255,0.1)"}`, background: activeView === "rec" ? "rgba(56,189,248,0.15)" : "transparent", color: activeView === "rec" ? "#38bdf8" : "#64748b", cursor: "pointer", fontSize: "13px", fontWeight: "700" }}>
-            🌊 Rec Lane
+            ð Rec Lane
           </button>
         </div>
         {activeView === "comp" && (
           <div style={{ background: "rgba(249,115,22,0.04)", border: "2px solid rgba(249,115,22,0.3)", borderRadius: "12px", padding: "16px" }}>
-            <div style={{ fontSize: "10px", color: "#f97316", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "12px" }}>🏆 Competitive Lane</div>
+            <div style={{ fontSize: "10px", color: "#f97316", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "12px" }}>ð Competitive Lane</div>
             {renderSections(splitResult.comp, "#f97316", onSectionUpdate)}
           </div>
         )}
         {activeView === "rec" && (
           <div style={{ background: "rgba(56,189,248,0.04)", border: "2px solid rgba(56,189,248,0.3)", borderRadius: "12px", padding: "16px" }}>
-            <div style={{ fontSize: "10px", color: "#38bdf8", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "12px" }}>🌊 Rec Lane</div>
+            <div style={{ fontSize: "10px", color: "#38bdf8", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "12px" }}>ð Rec Lane</div>
             {renderSections(splitResult.rec, "#38bdf8", onSectionUpdate)}
           </div>
         )}
@@ -338,7 +338,7 @@ function SwimCoach() {
   const [isBuilding, setIsBuilding] = useState(false);
   const [activeView, setActiveView] = useState("comp");
 
-  const [messages, setMessages]         = useState([{ role: "assistant", content: "Hey Coach. Tell me what you need — a full workout, a quick set, a mid-practice adjustment, or just ask me anything about training. I'll write it with the math and keep it interesting." }]);
+  const [messages, setMessages]         = useState([{ role: "assistant", content: "Hey Coach. Tell me what you need â a full workout, a quick set, a mid-practice adjustment, or just ask me anything about training. I'll write it with the math and keep it interesting." }]);
   const [chatInput, setChatInput]       = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
   const chatEndRef = useRef(null);
@@ -361,12 +361,12 @@ Practice: ${practiceLen} min | Intensity: ${intensity}/5 | Target: ${targetYards
 ${splitMode ? "SPLIT: Write COMPETITIVE LANE section first, then REC LANE section." : ""}
 Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, MAIN SET, COOL-DOWN.`;
     try {
-      const res  = await fetch("https://api.anthropic.com/v1/messages", {
+      const res  = await fetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 4096, system: sys, messages: [{ role: "user", content: prompt }] })
       });
       const data = await res.json();
-      const text = data.content?.find(b => b.type === "text")?.text || "Could not generate — try again in a sec.";
+      const text = data.content?.find(b => b.type === "text")?.text || "Could not generate â try again in a sec.";
       setRawSchedule(text); setWorkoutText(text);
     } catch (err) { setWorkoutText("Couldn't connect right now. Check your internet and try again."); }
     setIsBuilding(false);
@@ -377,7 +377,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
     const sectionYards = Math.round(targetYards * (sectionName === "MAIN SET" ? 0.55 : sectionName === "WARM-UP" ? 0.175 : sectionName === "PRE-SET" ? 0.175 : 0.10));
     const sys = buildTweakPrompt(sectionName, currentContent, tweakRequest, levelInfo.label, sectionYards);
     try {
-      const res  = await fetch("https://api.anthropic.com/v1/messages", {
+      const res  = await fetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 4096, system: sys, messages: [{ role: "user", content: `Rewrite the ${sectionName} with this tweak: "${tweakRequest}"` }] })
       });
@@ -395,17 +395,17 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
     const updated = [...messages, userMsg];
     setMessages(updated); setChatInput(""); setIsChatLoading(true);
     try {
-      const res  = await fetch("https://api.anthropic.com/v1/messages", {
+      const res  = await fetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6", max_tokens: 4096,
-          system: `You are an expert competitive swim coach who thinks on your feet. Kim is a real D1 swim coach using you poolside during practice. She may need instant adjustments: lost lanes, equipment changes, shortened time, injured swimmers, unexpected lane counts, or complete rewrites mid-practice. Respond fast, be specific (reps, distance, interval, stroke, equipment), and always show the math. If she describes a problem, give her the solution immediately — no preamble, no "great question," just the workout. ${VARIETY_RULES} Show math after every set. Section subtotals. Grand total exact.`,
+          system: `You are an expert competitive swim coach who thinks on your feet. Kim is a real D1 swim coach using you poolside during practice. She may need instant adjustments: lost lanes, equipment changes, shortened time, injured swimmers, unexpected lane counts, or complete rewrites mid-practice. Respond fast, be specific (reps, distance, interval, stroke, equipment), and always show the math. If she describes a problem, give her the solution immediately â no preamble, no "great question," just the workout. ${VARIETY_RULES} Show math after every set. Section subtotals. Grand total exact.`,
           messages: updated.map(m => ({ role: m.role, content: m.content }))
         })
       });
       const data = await res.json();
       setMessages(prev => [...prev, { role: "assistant", content: data.content?.find(b => b.type === "text")?.text || "No response." }]);
-    } catch { setMessages(prev => [...prev, { role: "assistant", content: "Couldn't connect — check your signal and try again." }]); }
+    } catch { setMessages(prev => [...prev, { role: "assistant", content: "Couldn't connect â check your signal and try again." }]); }
     setIsChatLoading(false);
   };
 
@@ -418,14 +418,14 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
 
       <div style={{ background: "linear-gradient(180deg,#0c1a33 0%,#070d1a 100%)", borderBottom: "1px solid rgba(56,189,248,0.15)", padding: "16px 20px 0" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
-          <span style={{ fontSize: "22px" }}>🏊</span>
+          <span style={{ fontSize: "22px" }}>ð</span>
           <div>
             <div style={{ fontSize: "17px", fontWeight: "800", color: "#38bdf8", letterSpacing: "-0.3px" }}>Kim's Little Helper</div>
-            <div style={{ fontSize: "10px", color: "#475569", letterSpacing: "0.5px", textTransform: "uppercase" }}>Real workouts · Tap any section to tweak</div>
+            <div style={{ fontSize: "10px", color: "#475569", letterSpacing: "0.5px", textTransform: "uppercase" }}>Real workouts Â· Tap any section to tweak</div>
           </div>
         </div>
         <div style={{ display: "flex", gap: "4px", marginTop: "12px" }}>
-          {[{ id: "schedule", label: "📋 Make a Workout" }, { id: "chat", label: "💬 Ask Coach" }].map(t => (
+          {[{ id: "schedule", label: "ð Make a Workout" }, { id: "chat", label: "ð¬ Ask Coach" }].map(t => (
             <button key={t.id} onClick={() => setTab(t.id)} style={{ padding: "8px 16px", borderRadius: "8px 8px 0 0", border: "none", cursor: "pointer", fontSize: "13px", fontWeight: "600", background: tab === t.id ? "#0f172a" : "transparent", color: tab === t.id ? "#38bdf8" : "#64748b", borderBottom: tab === t.id ? "2px solid #38bdf8" : "2px solid transparent" }}>{t.label}</button>
           ))}
         </div>
@@ -462,7 +462,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
               </div>
             </div>
 
-            {/* Workout Mode — prominent */}
+            {/* Workout Mode â prominent */}
             <div style={{ marginBottom: "18px" }}>
               <div style={{ fontSize: "10px", color: "#64748b", fontWeight: "700", letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "8px" }}>Workout Mode</div>
               <div style={{ display: "flex", gap: "8px" }}>
@@ -470,10 +470,10 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
                   One Workout
                 </button>
                 <button onClick={() => setSplitMode(true)} style={{ flex: 1, padding: "12px", borderRadius: "10px", border: `2px solid ${splitMode ? "#a78bfa" : "rgba(255,255,255,0.1)"}`, background: splitMode ? "rgba(167,139,250,0.18)" : "transparent", color: splitMode ? "#a78bfa" : "#64748b", cursor: "pointer", fontSize: "13px", fontWeight: "700" }}>
-                  🏆 Comp + 🌊 Rec
+                  ð Comp + ð Rec
                 </button>
               </div>
-              {splitMode && <div style={{ marginTop: "6px", fontSize: "11px", color: "#a78bfa" }}>Generates two versions — flip between them in the output</div>}
+              {splitMode && <div style={{ marginTop: "6px", fontSize: "11px", color: "#a78bfa" }}>Generates two versions â flip between them in the output</div>}
             </div>
 
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "14px", marginBottom: "14px", display: "flex", gap: "14px", flexWrap: "wrap" }}>
@@ -494,7 +494,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
             <div style={{ marginBottom: "18px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
                 <div style={{ fontSize: "10px", color: "#475569", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase" }}>Intensity</div>
-                <div style={{ fontSize: "12px", fontWeight: "700", color: iColor }}>{intensity}/5 — {INTENSITY_LABELS[intensity - 1]}</div>
+                <div style={{ fontSize: "12px", fontWeight: "700", color: iColor }}>{intensity}/5 â {INTENSITY_LABELS[intensity - 1]}</div>
               </div>
               <input type="range" min="1" max="5" value={intensity} onChange={e => setIntensity(Number(e.target.value))} style={{ width: "100%", accentColor: iColor, cursor: "pointer" }} />
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: "3px" }}>
@@ -503,7 +503,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
             </div>
 
             <button onClick={buildSchedule} disabled={isBuilding || days.length === 0} style={{ width: "100%", padding: "14px", borderRadius: "10px", border: "none", background: isBuilding || days.length === 0 ? "rgba(56,189,248,0.1)" : `linear-gradient(135deg,${iColor}88,${iColor})`, color: isBuilding ? "#38bdf8" : "#070d1a", fontSize: "14px", fontWeight: "700", cursor: isBuilding || days.length === 0 ? "not-allowed" : "pointer" }}>
-              {isBuilding ? "🏊 Writing..." : days.length === 0 ? "Select at least one day" : `Generate${splitMode ? " Comp + Rec" : ""} · ${days.length} Day${days.length !== 1 ? "s" : ""} · ${INTENSITY_LABELS[intensity - 1]}`}
+              {isBuilding ? "ð Writing..." : days.length === 0 ? "Select at least one day" : `Generate${splitMode ? " Comp + Rec" : ""} Â· ${days.length} Day${days.length !== 1 ? "s" : ""} Â· ${INTENSITY_LABELS[intensity - 1]}`}
             </button>
           </div>
 
@@ -526,13 +526,13 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
           <div style={{ flex: 1, overflowY: "auto", padding: "16px" }}>
             {messages.map((msg, i) => (
               <div key={i} style={{ marginBottom: "14px", display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
-                {msg.role === "assistant" && <div style={{ fontSize: "18px", marginRight: "8px", marginTop: "2px", flexShrink: 0 }}>🏊</div>}
+                {msg.role === "assistant" && <div style={{ fontSize: "18px", marginRight: "8px", marginTop: "2px", flexShrink: 0 }}>ð</div>}
                 <div style={{ maxWidth: "86%", padding: "12px 16px", borderRadius: msg.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px", background: msg.role === "user" ? "rgba(56,189,248,0.18)" : "rgba(255,255,255,0.05)", border: msg.role === "user" ? "1px solid rgba(56,189,248,0.35)" : "1px solid rgba(255,255,255,0.08)", fontSize: "13px", lineHeight: "1.65", color: "#e2e8f0", whiteSpace: "pre-wrap" }}>{msg.content}</div>
               </div>
             ))}
             {isChatLoading && (
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ fontSize: "18px" }}>🏊</span>
+                <span style={{ fontSize: "18px" }}>ð</span>
                 <div style={{ padding: "10px 16px", borderRadius: "18px 18px 18px 4px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "13px", color: "#64748b" }}>writing it up...</div>
               </div>
             )}
@@ -546,7 +546,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
           <div style={{ padding: "10px 16px 14px", borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.3)" }}>
             <div style={{ display: "flex", gap: "10px" }}>
               <input value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => e.key === "Enter" && !e.shiftKey && sendChat()} placeholder="Ask for any set, workout, or coaching advice..." style={{ flex: 1, padding: "11px 16px", borderRadius: "24px", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(56,189,248,0.25)", color: "#e2e8f0", fontSize: "13px", outline: "none" }} />
-              <button onClick={sendChat} disabled={isChatLoading || !chatInput.trim()} style={{ padding: "11px 18px", borderRadius: "24px", border: "none", background: chatInput.trim() ? "#38bdf8" : "rgba(56,189,248,0.2)", color: chatInput.trim() ? "#070d1a" : "#38bdf8", fontWeight: "700", cursor: chatInput.trim() ? "pointer" : "not-allowed", fontSize: "16px" }}>→</button>
+              <button onClick={sendChat} disabled={isChatLoading || !chatInput.trim()} style={{ padding: "11px 18px", borderRadius: "24px", border: "none", background: chatInput.trim() ? "#38bdf8" : "rgba(56,189,248,0.2)", color: chatInput.trim() ? "#070d1a" : "#38bdf8", fontWeight: "700", cursor: chatInput.trim() ? "pointer" : "not-allowed", fontSize: "16px" }}>â</button>
             </div>
           </div>
         </div>
