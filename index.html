@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Swim Coach">
@@ -12,8 +12,10 @@
   <title>Kim's Little Helper</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body, #root { height: 100%; width: 100%; overflow: hidden; }
-    body { background: #070d1a; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    html { height: 100%; overflow: hidden; }
+    body { height: 100%; overflow: hidden; background: #070d1a; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    #root { height: 100%; overflow: hidden; }
+    .scroll-container { -webkit-overflow-scrolling: touch; overflow-y: auto; }
     input[type=range] { -webkit-appearance: none; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.1); outline: none; }
     input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; }
   </style>
@@ -110,7 +112,7 @@ PARAMETERS:
 
 INTENSITY:
 1 Just Moving — fun, generous rest, no pressure
-2 Fitness — moderate, achievable, feel good when done  
+2 Fitness — moderate, achievable, feel good when done
 3 Training — focused, snug intervals, some challenge
 4 Competitive — tight intervals, designed for real improvement
 5 Elite — what top programs actually do, demanding
@@ -164,7 +166,6 @@ function parseSections(text) {
 }
 
 function parseSplit(text) {
-  // Try multiple patterns the AI might use
   const compPatterns = [/COMPETITIVE LANE/i, /COMP LANE/i, /VERSION 1/i, /COMPETITIVE GROUP/i];
   const recPatterns  = [/REC LANE/i, /REC GROUP/i, /VERSION 2/i, /RECREATIONAL/i];
 
@@ -414,9 +415,9 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
   );
 
   return (
-    <div style={{ fontFamily: "'Inter', system-ui, sans-serif", background: "#070d1a", minHeight: "100vh", color: "#e2e8f0", display: "flex", flexDirection: "column" }}>
+    <div style={{ fontFamily: "'Inter', system-ui, sans-serif", background: "#070d1a", height: "100%", color: "#e2e8f0", display: "flex", flexDirection: "column" }}>
 
-      <div style={{ background: "linear-gradient(180deg,#0c1a33 0%,#070d1a 100%)", borderBottom: "1px solid rgba(56,189,248,0.15)", padding: "16px 20px 0" }}>
+      <div style={{ background: "linear-gradient(180deg,#0c1a33 0%,#070d1a 100%)", borderBottom: "1px solid rgba(56,189,248,0.15)", padding: "16px 20px 0", flexShrink: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
           <span style={{ fontSize: "22px" }}>🏊</span>
           <div>
@@ -432,7 +433,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
       </div>
 
       {tab === "schedule" && (
-        <div style={{ flex: 1, overflowY: "auto", padding: "16px" }}>
+        <div className="scroll-container" style={{ flex: 1, overflowY: "auto", padding: "16px", WebkitOverflowScrolling: "touch" }}>
           <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "14px", padding: "18px", marginBottom: "16px" }}>
 
             <div style={{ marginBottom: "18px" }}>
@@ -462,7 +463,6 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
               </div>
             </div>
 
-            {/* Workout Mode — prominent */}
             <div style={{ marginBottom: "18px" }}>
               <div style={{ fontSize: "10px", color: "#64748b", fontWeight: "700", letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "8px" }}>Workout Mode</div>
               <div style={{ display: "flex", gap: "8px" }}>
@@ -518,12 +518,13 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
               onSectionUpdate={handleSectionUpdate}
             />
           )}
+          <div style={{ height: "40px" }} />
         </div>
       )}
 
       {tab === "chat" && (
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-          <div style={{ flex: 1, overflowY: "auto", padding: "16px" }}>
+          <div className="scroll-container" style={{ flex: 1, overflowY: "auto", padding: "16px", WebkitOverflowScrolling: "touch" }}>
             {messages.map((msg, i) => (
               <div key={i} style={{ marginBottom: "14px", display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
                 {msg.role === "assistant" && <div style={{ fontSize: "18px", marginRight: "8px", marginTop: "2px", flexShrink: 0 }}>🏊</div>}
@@ -538,12 +539,12 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
             )}
             <div ref={chatEndRef} />
           </div>
-          <div style={{ padding: "0 16px 8px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          <div style={{ padding: "0 16px 8px", display: "flex", gap: "6px", flexWrap: "wrap", flexShrink: 0 }}>
             {["Lost a lane, rewrite main set", "Only kickboards today", "20 min left, need a finisher", "Rain delay, dryland for 15 min", "Easy recovery day", "Race pace 100s for high school"].map(q => (
               <button key={q} onClick={() => setChatInput(q)} style={{ padding: "5px 12px", borderRadius: "14px", border: "1px solid rgba(56,189,248,0.25)", background: "rgba(56,189,248,0.08)", color: "#7dd3fc", cursor: "pointer", fontSize: "11px" }}>{q}</button>
             ))}
           </div>
-          <div style={{ padding: "10px 16px 14px", borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.3)" }}>
+          <div style={{ padding: "10px 16px 14px", borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.3)", flexShrink: 0 }}>
             <div style={{ display: "flex", gap: "10px" }}>
               <input value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => e.key === "Enter" && !e.shiftKey && sendChat()} placeholder="Ask for any set, workout, or coaching advice..." style={{ flex: 1, padding: "11px 16px", borderRadius: "24px", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(56,189,248,0.25)", color: "#e2e8f0", fontSize: "13px", outline: "none" }} />
               <button onClick={sendChat} disabled={isChatLoading || !chatInput.trim()} style={{ padding: "11px 18px", borderRadius: "24px", border: "none", background: chatInput.trim() ? "#38bdf8" : "rgba(56,189,248,0.2)", color: chatInput.trim() ? "#070d1a" : "#38bdf8", fontWeight: "700", cursor: chatInput.trim() ? "pointer" : "not-allowed", fontSize: "16px" }}>→</button>
