@@ -518,7 +518,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
               <div>
                 <div style={{ fontSize: "10px", color: "#475569", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "7px" }}>Length</div>
                 <div style={{ display: "flex", gap: "5px" }}>
-                  {LENGTH_OPTIONS.map(l => <button key={l} onClick={() => setPracticeLen(l)} aria-pressed={practiceLen ==== l} style={{ padding: "7px 10px", borderRadius: "7px", border: `1px solid ${practiceLen === l ? "#38bdf8" : "rgba(255,255,255,0.08)"}`, background: practiceLen === l ? "rgba(56,189,248,0.15)" : "transparent", color: practiceLen === l ? "#38bdf8" : "#475569", cursor: "pointer", fontSize: "11px", fontWeight: practiceLen === l ? "700" : "400", minHeight: "34px" }}>{l}m</button>)}
+                  {LENGTH_OPTIONS.map(l => <button key={l} onClick={() => setPracticeLen(l)} aria-pressed={practiceLen === l} style={{ padding: "7px 10px", borderRadius: "7px", border: `1px solid ${practiceLen === l ? "#38bdf8" : "rgba(255,255,255,0.08)"}`, background: practiceLen === l ? "rgba(56,189,248,0.15)" : "transparent", color: practiceLen === l ? "#38bdf8" : "#475569", cursor: "pointer", fontSize: "11px", fontWeight: practiceLen === l ? "700" : "400", minHeight: "34px" }}>{l}m</button>)}
                 </div>
               </div>
               <div>
