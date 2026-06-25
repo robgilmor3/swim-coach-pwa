@@ -41,11 +41,11 @@ async function safeFetch(url, opts) {
   const res = await fetchWithTimeout(url, opts);
   if (!res.ok) {
     let msg = `Error ${res.status}`;
-    if (res.status === 401) msg = "API key issue â tell Rob to check Vercel env vars.";
-    else if (res.status === 400) msg = "API credits may be low â tell Rob to check the Anthropic dashboard.";
-    else if (res.status === 429) msg = "Rate limited â wait 30 seconds and try again.";
-    else if (res.status === 529) msg = "API is overloaded â try again in a minute.";
-    else if (res.status >= 500) msg = "Server error â try again in a moment.";
+    if (res.status === 401) msg = "API key issue — tell Rob to check Vercel env vars.";
+    else if (res.status === 400) msg = "API credits may be low — tell Rob to check the Anthropic dashboard.";
+    else if (res.status === 429) msg = "Rate limited — wait 30 seconds and try again.";
+    else if (res.status === 529) msg = "API is overloaded — try again in a minute.";
+    else if (res.status >= 500) msg = "Server error — try again in a moment.";
     throw new Error(msg);
   }
   return res;
@@ -72,14 +72,14 @@ const LEVELS = [
 ];
 
 const FOCUS_AREAS = [
-  { id: "aerobic",    label: "Aerobic Base",         emoji: "ð«" },
-  { id: "sprint",     label: "Sprint / Speed",        emoji: "â¡" },
-  { id: "technique",  label: "Stroke Technique",      emoji: "ð¯" },
-  { id: "im",         label: "Individual Medley",     emoji: "ð" },
-  { id: "kick",       label: "Kick Development",      emoji: "ð¦µ" },
-  { id: "underwater", label: "Underwater / Turns",    emoji: "ð¬" },
-  { id: "threshold",  label: "Race Pace / Threshold", emoji: "ð" },
-  { id: "recovery",   label: "Recovery / Easy",       emoji: "ð" },
+  { id: "aerobic",    label: "Aerobic Base",         emoji: "🫁" },
+  { id: "sprint",     label: "Sprint / Speed",        emoji: "⚡" },
+  { id: "technique",  label: "Stroke Technique",      emoji: "🎯" },
+  { id: "im",         label: "Individual Medley",     emoji: "🔄" },
+  { id: "kick",       label: "Kick Development",      emoji: "🦵" },
+  { id: "underwater", label: "Underwater / Turns",    emoji: "🐬" },
+  { id: "threshold",  label: "Race Pace / Threshold", emoji: "🏁" },
+  { id: "recovery",   label: "Recovery / Easy",       emoji: "😌" },
 ];
 
 const SEASON_PHASES = [
@@ -96,7 +96,7 @@ const DAYS_OF_WEEK     = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const LENGTH_OPTIONS   = [45, 60, 75, 90, 120];
 
 const VARIETY_RULES = `
-VARIETY RULES â CRITICAL:
+VARIETY RULES — CRITICAL:
 - NEVER write a straight 400 or longer sustained swim as a main set element. Break everything up.
 - Use ladders: e.g. 25-50-75-100-75-50-25, or 100-200-300-200-100
 - Use descending sets: each rep faster, interval drops 5-10 sec each round
@@ -104,8 +104,8 @@ VARIETY RULES â CRITICAL:
 - Use competition elements: "race the lane next to you," "negative split or add a 25," "team beats the clock gets out 3 min early"
 - Use mystery sets: write "(coach reveals next rep)" for one element per practice
 - Use time trial relays or odds vs evens lane competitions
-- Use "get-out swims" â one final fast rep, hit the goal time and practice ends
-- Vary distances constantly within a set â avoid repeating the same distance more than 4 times in a row
+- Use "get-out swims" — one final fast rep, hit the goal time and practice ends
+- Vary distances constantly within a set — avoid repeating the same distance more than 4 times in a row
 - Every main set should have at least one element that creates competition, stakes, or surprise
 - Fun and punishing are not opposites. Make them earn it but make it interesting.`;
 
@@ -118,7 +118,7 @@ function buildSysPrompt(levelLabel, intensity, targetYards, practiceMin, splitMo
   return `You are an expert competitive swimming coach writing real, practical, ENGAGING workouts for club swimmers.
 
 MATH RULES:
-- After every set write the math: e.g. "8 Ã 100 = 800 yds"
+- After every set write the math: e.g. "8 × 100 = 800 yds"
 - End every section (WARM-UP, PRE-SET, MAIN SET, COOL-DOWN) with: "--- Section total: XXX yds ---"
 - End with: "=== TOTAL: XXX yds ===" which must equal exact sum of section totals
 - Use these exact section headers so the app can parse them
@@ -127,18 +127,18 @@ ${VARIETY_RULES}
 
 PARAMETERS:
 - Swimmer level: ${levelLabel}
-- Intensity: ${intensity}/5 â ${INTENSITY_LABELS[intensity-1]}
+- Intensity: ${intensity}/5 — ${INTENSITY_LABELS[intensity-1]}
 - Practice duration: ${practiceMin} minutes
-- Target yardage: ${targetYards} yards â calibrate to this, do not exceed by more than 5%
+- Target yardage: ${targetYards} yards — calibrate to this, do not exceed by more than 5%
 
 INTENSITY:
-1 Just Moving â fun, generous rest, no pressure
-2 Fitness â moderate, achievable, feel good when done
-3 Training â focused, snug intervals, some challenge
-4 Competitive â tight intervals, designed for real improvement
-5 Elite â what top programs actually do, demanding
+1 Just Moving — fun, generous rest, no pressure
+2 Fitness — moderate, achievable, feel good when done
+3 Training — focused, snug intervals, some challenge
+4 Competitive — tight intervals, designed for real improvement
+5 Elite — what top programs actually do, demanding
 
-${splitMode ? `SPLIT OUTPUT â write two clearly labeled sections:
+${splitMode ? `SPLIT OUTPUT — write two clearly labeled sections:
 
 COMPETITIVE LANE
 [full target yardage, tight intervals, competition elements, get-out swim]
@@ -161,10 +161,10 @@ COACH'S TWEAK REQUEST: "${tweakRequest}"
 
 RULES:
 - Keep approximately ${targetSectionYards} yards for this section
-- Show math after every set: e.g. "8 Ã 100 = 800 yds"
+- Show math after every set: e.g. "8 × 100 = 800 yds"
 - End with: "--- Section total: XXX yds ---"
 - Apply the tweak request faithfully
-- Keep it engaging â no boring straight 400s, use variety, ladders, competition elements
+- Keep it engaging — no boring straight 400s, use variety, ladders, competition elements
 - Swimmer level: ${levelLabel}
 
 Return ONLY the rewritten section. No intro, no explanation. Just the section content starting with the section header.`;
@@ -249,7 +249,7 @@ function SectionCard({ name, content, onTweak, accent = "#38bdf8" }) {
   const [tweakInput, setTweakInput] = useState("");
   const [loading, setLoading]     = useState(false);
 
-  const icons = { "WARM-UP": "ð", "PRE-SET": "ð¦µ", "MAIN SET": "ð¥", "COOL-DOWN": "ð" };
+  const icons = { "WARM-UP": "🌊", "PRE-SET": "🦵", "MAIN SET": "🔥", "COOL-DOWN": "😌" };
 
   return (
     <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${accent}33`, borderRadius: "10px", padding: "14px", marginBottom: "10px" }}>
@@ -369,7 +369,7 @@ function SwimCoach() {
   const [activeView, setActiveView] = useState("comp");
   const [error, setError]           = useState(null);
 
-  const [messages, setMessages]         = useState([{ role: "assistant", content: "Hey Coach. Tell me what you need â a full workout, a quick set, a mid-practice adjustment, or just ask me anything about training. I'll write it with the math and keep it interesting." }]);
+  const [messages, setMessages]         = useState([{ role: "assistant", content: "Hey Coach. Tell me what you need — a full workout, a quick set, a mid-practice adjustment, or just ask me anything about training. I'll write it with the math and keep it interesting." }]);
   const [chatInput, setChatInput]       = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
   const chatEndRef = useRef(null);
@@ -397,10 +397,10 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
         body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 4096, system: sys, messages: [{ role: "user", content: prompt }] })
       });
       const data = await res.json();
-      const text = data.content?.find(b => b.type === "text")?.text || "Could not generate â try again in a sec.";
+      const text = data.content?.find(b => b.type === "text")?.text || "Could not generate — try again in a sec.";
       setRawSchedule(text); setWorkoutText(text);
     } catch (err) {
-      const msg = err.name === "AbortError" ? "Request timed out â check your connection and try again." : (err.message || "Couldn't connect right now. Check your internet and try again.");
+      const msg = err.name === "AbortError" ? "Request timed out — check your connection and try again." : (err.message || "Couldn't connect right now. Check your internet and try again.");
       setError(msg); setWorkoutText(null);
     }
     setIsBuilding(false);
@@ -435,14 +435,14 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6", max_tokens: 4096,
-          system: `You are an expert competitive swim coach who thinks on your feet. Kim is a real D1 swim coach using you poolside during practice. She may need instant adjustments: lost lanes, equipment changes, shortened time, injured swimmers, unexpected lane counts, or complete rewrites mid-practice. Respond fast, be specific (reps, distance, interval, stroke, equipment), and always show the math. If she describes a problem, give her the solution immediately â no preamble, no "great question," just the workout. ${VARIETY_RULES} Show math after every set. Section subtotals. Grand total exact.`,
+          system: `You are an expert competitive swim coach who thinks on your feet. Kim is a real D1 swim coach using you poolside during practice. She may need instant adjustments: lost lanes, equipment changes, shortened time, injured swimmers, unexpected lane counts, or complete rewrites mid-practice. Respond fast, be specific (reps, distance, interval, stroke, equipment), and always show the math. If she describes a problem, give her the solution immediately — no preamble, no "great question," just the workout. ${VARIETY_RULES} Show math after every set. Section subtotals. Grand total exact.`,
           messages: updated.map(m => ({ role: m.role, content: m.content }))
         })
       });
       const data = await res.json();
       setMessages(prev => [...prev, { role: "assistant", content: data.content?.find(b => b.type === "text")?.text || "No response." }]);
     } catch (err) {
-      const msg = err.name === "AbortError" ? "Request timed out â check your connection." : (err.message || "Couldn't connect â check your signal and try again.");
+      const msg = err.name === "AbortError" ? "Request timed out — check your connection." : (err.message || "Couldn't connect — check your signal and try again.");
       setMessages(prev => [...prev, { role: "assistant", content: msg }]);
     }
     setIsChatLoading(false);
@@ -457,15 +457,15 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
 
       <div style={{ flexShrink: 0, background: "linear-gradient(180deg,#0c1a33 0%,#070d1a 100%)", borderBottom: "1px solid rgba(56,189,248,0.15)", padding: "16px 20px 0", paddingTop: "max(16px, env(safe-area-inset-top))" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
-          <span style={{ fontSize: "22px" }}>ð</span>
+          <span style={{ fontSize: "22px" }}>🏊</span>
           <div>
             <div style={{ fontSize: "17px", fontWeight: "800", color: "#38bdf8", letterSpacing: "-0.3px" }}>Kim's Little Helper</div>
-            <div style={{ fontSize: "10px", color: "#475569", letterSpacing: "0.5px", textTransform: "uppercase" }}>Real workouts Â· Tap any section to tweak</div>
+            <div style={{ fontSize: "10px", color: "#475569", letterSpacing: "0.5px", textTransform: "uppercase" }}>Real workouts · Tap any section to tweak</div>
           </div>
         </div>
         <div style={{ display: "flex", gap: "4px", marginTop: "12px" }} role="tablist">
           {[{ id: "schedule", label: "Make a Workout" }, { id: "chat", label: "Ask Coach" }].map(t => (
-            <button key={t.id} onClick={() => setTab(t.id)} role="tab" aria-selected={tab === t.id} style={{ padding: "10px 16px", borderRadius: "8px 8px 0 0", border: "none", cursor: "pointer", fontSize: "13px", fontWeight: "600", background: tab === t.id ? "#0f172a" : "transparent", color: tab === t.id ? "#38bdf8" : "#64748b", borderBottom: tab === t.id ? "2px solid #38bdf8" : "2px solid transparent", minHeight: "40px" }}>{t.label}</button>
+            <button key={t.id} onClick={() => setTab(t.id)} role="tab" aria-selected={tab === t.id} style={{ padding: "10px 16px", borderRadius: "8px 8px 0 0", border: "none", cursor: "pointer", fontSize: "13px", fontWeight: "600", background: tab === t.id ? "#0f172a" : "transparent", color: tab === t.id? "#38bdf8" : "#64748b", borderBottom: tab === t.id ? "2px solid #38bdf8" : "2px solid transparent", minHeight: "40px" }}>{t.label}</button>
           ))}
         </div>
       </div>
@@ -511,14 +511,14 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
                   Comp + Rec
                 </button>
               </div>
-              {splitMode && <div style={{ marginTop: "6px", fontSize: "11px", color: "#a78bfa" }}>Generates two versions â flip between them in the output</div>}
+              {splitMode && <div style={{ marginTop: "6px", fontSize: "11px", color: "#a78bfa" }}>Generates two versions — flip between them in the output</div>}
             </div>
 
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "14px", marginBottom: "14px", display: "flex", gap: "14px", flexWrap: "wrap" }}>
               <div>
                 <div style={{ fontSize: "10px", color: "#475569", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "7px" }}>Length</div>
                 <div style={{ display: "flex", gap: "5px" }}>
-                  {LENGTH_OPTIONS.map(l => <button key={l} onClick={() => setPracticeLen(l)} aria-pressed={practiceLen === l} style={{ padding: "7px 10px", borderRadius: "7px", border: `1px solid ${practiceLen === l ? "#38bdf8" : "rgba(255,255,255,0.08)"}`, background: practiceLen === l ? "rgba(56,189,248,0.15)" : "transparent", color: practiceLen === l ? "#38bdf8" : "#475569", cursor: "pointer", fontSize: "11px", fontWeight: practiceLen === l ? "700" : "400", minHeight: "34px" }}>{l}m</button>)}
+                  {LENGTH_OPTIONS.map(l => <button key={l} onClick={() => setPracticeLen(l)} aria-pressed={practiceLen ==== l} style={{ padding: "7px 10px", borderRadius: "7px", border: `1px solid ${practiceLen === l ? "#38bdf8" : "rgba(255,255,255,0.08)"}`, background: practiceLen === l ? "rgba(56,189,248,0.15)" : "transparent", color: practiceLen === l ? "#38bdf8" : "#475569", cursor: "pointer", fontSize: "11px", fontWeight: practiceLen === l ? "700" : "400", minHeight: "34px" }}>{l}m</button>)}
                 </div>
               </div>
               <div>
@@ -532,7 +532,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
             <div style={{ marginBottom: "18px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
                 <div style={{ fontSize: "10px", color: "#475569", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase" }}>Intensity</div>
-                <div style={{ fontSize: "12px", fontWeight: "700", color: iColor }}>{intensity}/5 â {INTENSITY_LABELS[intensity - 1]}</div>
+                <div style={{ fontSize: "12px", fontWeight: "700", color: iColor }}>{intensity}/5 — {INTENSITY_LABELS[intensity - 1]}</div>
               </div>
               <input type="range" min="1" max="5" value={intensity} onChange={e => setIntensity(Number(e.target.value))} aria-label={`Intensity: ${INTENSITY_LABELS[intensity - 1]}`} style={{ width: "100%", accentColor: iColor, cursor: "pointer" }} />
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: "3px" }}>
@@ -541,7 +541,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
             </div>
 
             <button onClick={buildSchedule} disabled={isBuilding || days.length === 0} style={{ width: "100%", padding: "14px", borderRadius: "10px", border: "none", background: isBuilding || days.length === 0 ? "rgba(56,189,248,0.1)" : `linear-gradient(135deg,${iColor}88,${iColor})`, color: isBuilding ? "#38bdf8" : "#070d1a", fontSize: "14px", fontWeight: "700", cursor: isBuilding || days.length === 0 ? "not-allowed" : "pointer", minHeight: "48px" }}>
-              {isBuilding ? "Writing..." : days.length === 0 ? "Select at least one day" : `Generate${splitMode ? " Comp + Rec" : ""} Â· ${days.length} Day${days.length !== 1 ? "s" : ""} Â· ${INTENSITY_LABELS[intensity - 1]}`}
+              {isBuilding ? "Writing..." : days.length === 0 ? "Select at least one day" : `Generate${splitMode ? " Comp + Rec" : ""} · ${days.length} Day${days.length !== 1 ? "s" : ""} · ${INTENSITY_LABELS[intensity - 1]}`}
             </button>
           </div>
 
@@ -572,13 +572,13 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
           <div className="scroll-container" style={{ flex: 1, overflowY: "auto", WebkitOverflowScrolling: "touch", padding: "16px" }}>
             {messages.map((msg, i) => (
               <div key={i} style={{ marginBottom: "14px", display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
-                {msg.role === "assistant" && <div style={{ fontSize: "18px", marginRight: "8px", marginTop: "2px", flexShrink: 0 }}>ð</div>}
+                {msg.role === "assistant" && <div style={{ fontSize: "18px", marginRight: "8px", marginTop: "2px", flexShrink: 0 }}>🏊</div>}
                 <div style={{ maxWidth: "86%", padding: "12px 16px", borderRadius: msg.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px", background: msg.role === "user" ? "rgba(56,189,248,0.18)" : "rgba(255,255,255,0.05)", border: msg.role === "user" ? "1px solid rgba(56,189,248,0.35)" : "1px solid rgba(255,255,255,0.08)", fontSize: "13px", lineHeight: "1.65", color: "#e2e8f0", whiteSpace: "pre-wrap" }}>{msg.content}</div>
               </div>
             ))}
             {isChatLoading && (
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ fontSize: "18px" }}>ð</span>
+                <span style={{ fontSize: "18px" }}>🏊</span>
                 <div style={{ padding: "10px 16px", borderRadius: "18px 18px 18px 4px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "13px", color: "#64748b" }}>writing it up...</div>
               </div>
             )}
