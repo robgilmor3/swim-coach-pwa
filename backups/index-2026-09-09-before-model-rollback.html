@@ -409,7 +409,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
     try {
       const res  = await safeFetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 4096, system: sys, messages: [{ role: "user", content: prompt }] })
+        body: JSON.stringify({ model: "claude-sonnet-5", max_tokens: 4096, system: sys, messages: [{ role: "user", content: prompt }] })
       }, () => setBuildingMsg("Still working on it... retrying"));
       const data = await res.json();
       const text = data.content?.find(b => b.type === "text")?.text || "Could not generate — try again in a sec.";
@@ -428,7 +428,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
     try {
       const res  = await safeFetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 4096, system: sys, messages: [{ role: "user", content: `Rewrite the ${sectionName} with this tweak: "${tweakRequest}"` }] })
+        body: JSON.stringify({ model: "claude-sonnet-5", max_tokens: 4096, system: sys, messages: [{ role: "user", content: `Rewrite the ${sectionName} with this tweak: "${tweakRequest}"` }] })
       });
       const data = await res.json();
       const newSection = data.content?.find(b => b.type === "text")?.text || currentContent;
@@ -449,7 +449,7 @@ Label each practice by day. Every section uses exact headers: WARM-UP, PRE-SET, 
       const res  = await safeFetch("/api/chat", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-6", max_tokens: 4096,
+          model: "claude-sonnet-5", max_tokens: 4096,
           system: `You are an expert competitive swim coach who thinks on your feet. Kim is a real D1 swim coach using you poolside during practice. She may need instant adjustments: lost lanes, equipment changes, shortened time, injured swimmers, unexpected lane counts, or complete rewrites mid-practice. Respond fast, be specific (reps, distance, interval, stroke, equipment), and always show the math. If she describes a problem, give her the solution immediately — no preamble, no "great question," just the workout. ${VARIETY_RULES} Show math after every set. Section subtotals. Grand total exact.`,
           messages: updated.map(m => ({ role: m.role, content: m.content }))
         })
